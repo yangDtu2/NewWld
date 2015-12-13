@@ -1,0 +1,72 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <windows.h>
+
+void NextLine(int k);
+void Display(int k);
+
+int main( void )
+{
+	char stop=0, KeyInput;
+	static int i=0, k=0;
+
+	int value, previous_keystroke = 0;
+
+	while(!stop)
+	{
+	    system("cls"); 
+	    i = i%80;
+	    if(i == 0){
+	    	k++;
+	    	k = k%24;
+	    }
+	    // Draw the screen
+	    NextLine(k);
+	    Display(i);
+
+	    i++;
+
+	    if(kbhit())
+	    {
+			KeyInput = getchar();
+			if(KeyInput == 'y') stop = 1;
+	    }
+		Sleep(10);
+	    //For sound effect
+	    //for(i=0; i<5; i++)
+	    	//printf("%c ", 0X07);
+	}
+    return 0;
+}
+
+void NextLine(int k)
+{
+
+	for(int j=0; j<k; j++) printf("\n");
+}
+
+
+void Display(int i)
+{
+	for(int j=0; j<i; j++) printf(" ");
+	switch(i%4)
+	{
+		case 0:
+			printf("***\n" );
+			break;
+		case 1:
+			printf("%c%c%c%c\n", 0x5f, 0xc0, 0x5f, 0x5f);
+			break;
+		case 2:
+			printf("%c%c%c%c\n", 0x5f, 0x5f, 0xc0, 0x5f);
+			break;
+		case 3:
+			printf("%c%c%c%c\n", 0x5f, 0x5f, 0x5f, 0xc0);
+			break;
+	}
+
+}
+
+
